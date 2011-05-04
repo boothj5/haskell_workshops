@@ -1,24 +1,8 @@
+-- Pattern matching examples
+
 numIsSeven :: Int -> String
 numIsSeven 7 = "Hit"
 numIsSeven x = show x ++ " is not 7"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 printNum :: Int -> String  
 printNum 1 = "One"  
@@ -28,20 +12,6 @@ printNum 4 = "Four"
 printNum 5 = "Five"  
 printNum x = show x ++ " is not between 1 and 5" 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 printNum2 :: Int -> String  
 printNum2 1 = "One"  
 printNum2 2 = "Two"  
@@ -50,195 +20,42 @@ printNum2 4 = "Four"
 printNum2 5 = "Five"  
 printNum2 _ = "It's not between 1 and 5" 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- recursion
 
 factorial :: Integer -> Integer  
 factorial 0 = 1  
 factorial n = n * factorial (n - 1)  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Matching list constructors
 
 newHead :: [a] -> a
 newHead (first:rest) = first
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 newHead2 :: [a] -> a
 newHead2 (first:_) = first
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 newHead3 :: [a] -> a
 newHead3 [] = error "Can't call newHead on empty list"
 newHead3 (first:_) = first
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Maybe!
 
 newHead4 :: [a] -> Maybe a
 newHead4 [] = Nothing
 newHead4 (first:_) = Just first
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Implementing our own first, second and third
 
 first :: (a, b, c) -> a
 first (x, _, _) = x
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 second :: (a, b, c) -> b
 second (_, y, _) = y
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 third :: (a, b, c) -> c
 third (_, _, z) = z
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- Guards
 
 guardFunc :: Float -> String
 guardFunc n 
@@ -246,87 +63,21 @@ guardFunc n
     | n <= 20.75 = "10.25 < " ++ show n ++ " <= 20.75"
     | otherwise  = show n ++ " > 20.75"
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-
-
-
-
-
-validMove :: Int -> [Int] -> Bool
-validMove x  []        = True
-validMove x1 (x2:xs)  
-    | specialNumber x1 = True
-    | x2 == invisible  = validMove x1 xs
-    | x1 >= x2         = True
-    | otherwise        = False
-      where specialNumber x = x `elem` [2, 7, 10]
-	    invisible = 7
-    
-    
-    
-
-
-
-
-
-
-
-
-
+-- let
 
 addSqToDb :: Int -> Int -> Int
 addSqToDb x y = let sqx = x * x
                     dby = y + y
                 in sqx + dby
-                
-                
-                
-                
-                
-                
-                
-                
-                
 
-
-
-
-
-
-
-
+-- where
 
 addSqToDb2 :: Int -> Int -> Int
 addSqToDb2 x y = sqx + dby
     where sqx = x * x
           dby = y + y
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- if
 
 guardFunc2 :: Float -> String
 guardFunc2 n =
@@ -336,19 +87,7 @@ guardFunc2 n =
             then "10.25 < " ++ show n ++ " <= 20.75"
             else show n ++ " > 20.75"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- case
 
 printNum3 :: Int -> String  
 printNum3 x = 
@@ -359,3 +98,16 @@ printNum3 x =
         4 -> "Four"  
         5 -> "Five"  
         _ -> "It's not between 1 and 5" 
+
+-- The card game valid move check
+
+validMove :: Int -> [Int] -> Bool
+validMove x  []        = True
+validMove x1 (x2:xs)  
+    | specialNumber x1 = True
+    | x2 == invisible  = validMove x1 xs
+    | x1 >= x2         = True
+    | otherwise        = False
+      where specialNumber x = x `elem` [2, 7, 10]
+	    invisible = 7
+
