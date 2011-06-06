@@ -1,3 +1,5 @@
+module Haskell4_ks where
+
 replaceCardWithCard :: [Int] -> Int -> Int -> [Int]
 replaceCardWithCard [] _ _ = []
 replaceCardWithCard (x:xs) c1 c2
@@ -33,8 +35,8 @@ validMove c1 (c2:cs)
     | otherwise           = False
       where invisible = 7
       
-eitherPlayerCanMove :: [Int] -> [Int] -> [Int] -> Bool
-eitherPlayerCanMove h1 h2 p
+canMove :: [Int] -> [Int] -> [Int] -> Bool
+canMove h1 h2 p
     | playerCanMove h1 p = True
     | playerCanMove h2 p = True
     | otherwise = False
