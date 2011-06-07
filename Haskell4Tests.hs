@@ -1,7 +1,8 @@
 import Test.HUnit
--- import Haskell4
---import Haskell4_dl
-import Haskell4_ks
+import Haskell4
+-- import Haskell4_dl
+-- import Haskell4_ks
+-- import Haskell4_bs 
 
 -- So we can pick the test function
 replaceFunction = replaceCardWithCard
