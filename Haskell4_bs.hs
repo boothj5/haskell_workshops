@@ -13,13 +13,15 @@ validMove c1 (c2:cs)
       where invisible = 7
 
 replaceCardWithCard :: [Int] -> Int -> Int -> [Int]
-replaceCardWithCard cards new old
-         | old == head cards = new : tail cards
-         | otherwise = head cards : replaceCardWithCard (tail cards) new old
+replaceCardWithCard [] _ _ = []
+replaceCardWithCard (x:xs) old new
+         | old == x = new : xs
+         | otherwise = x : replaceCardWithCard xs old new
 
 lowestCard :: [Int] -> Int
+-- lowestCard [] = error "Error"
 lowestCard (x:xs)
-         | [] == xs = x
+        | [] == xs = x
          | not (specialCard x) && x < low = x
          | otherwise  = low
          where low = lowestCard xs

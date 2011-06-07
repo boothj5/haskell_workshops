@@ -1,8 +1,8 @@
 import Test.HUnit
 import Haskell4
--- import Haskell4_dl
--- import Haskell4_ks
--- import Haskell4_bs 
+--import Haskell4_dl
+--import Haskell4_ks
+--import Haskell4_bs 
 
 -- So we can pick the test function
 replaceFunction = replaceCardWithCard
@@ -54,7 +54,6 @@ testLowest5 =
         "TestLowest5"
         12 (lowestCard [7,14,12,13,2]))
         
-
 -- Test canMove
 testCanMove1 = 
     TestCase (assertBool

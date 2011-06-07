@@ -16,4 +16,6 @@ validMove c1 (c2:cs)
       where invisible = 7
 
 canMove :: [Int] -> [Int] -> [Int] -> Bool
-canMove pile hand1 hand2 =  foldl (\acc card -> if validMove card pile then True else acc) False $ hand1 ++ hand2
+canMove pile hand1 hand2 
+    =  foldl (\acc card -> if validMove card pile then True else acc) False $ hand1 ++ hand2
+

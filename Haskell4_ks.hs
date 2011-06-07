@@ -16,7 +16,9 @@ replaceCardIfMatching c1 c2 c
     
 replaceCardWithCard'' :: [Int] -> Int -> Int -> [Int]
 replaceCardWithCard'' cs c1 c2 = map p cs
-    where p x | x == c1 = c2 | otherwise = x
+    where p x 
+           | x == c1 = c2 
+           | otherwise = x
 
 specialCard :: Int -> Bool
 specialCard = (`elem` [2,7,10])
@@ -38,7 +40,7 @@ validMove c1 (c2:cs)
 canMove :: [Int] -> [Int] -> [Int] -> Bool
 canMove h1 h2 p
     | playerCanMove h1 p = True
-    | playerCanMove h2 p = True
+    | h1 == [] && playerCanMove h2 p = True
     | otherwise = False
 
 playerCanMove :: [Int] -> [Int] -> Bool
