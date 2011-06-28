@@ -8,16 +8,16 @@ instance (Show a) => Show (List a) where
     show (Elem x xs)    = show x ++ ", " ++ show xs
     
 listHead :: List a -> Maybe a
-listHead _ = Nothing
+listHead _ = error "Function not implemented"
 
 listTail :: List a -> Maybe (List a)
-listTail _ = Nothing
+listTail _ = error "Function not implemented"
 
 listSize :: List a -> Int
-listSize _ = 0
+listSize _ = error "Function not implemented"
 
 listGet :: Int -> List a -> Maybe a
-listGet _ _ = Nothing 
+listGet _ _ = error "Function not implemented" 
 
 listMap :: (a -> b) -> List a -> List b
-listMap _ _ = Empty
+listMap _ _ = error "Function not implemented"
