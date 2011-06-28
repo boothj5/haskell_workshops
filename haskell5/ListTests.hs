@@ -14,19 +14,18 @@ listOfFive = Elem "Hello" (Elem "There" (Elem "Whats" (Elem "Going" (Elem "On" E
 listOfTen :: List Int
 listOfTen = Elem 1 (Elem 2 (Elem 3 (Elem 4 (Elem 5 (Elem 6 (Elem 7 (Elem 8 (Elem 9 (Elem 10 Empty)))))))))
 
--- Turn List to a primitive []
--- So we can test equality of returned lists
--- as we have not implemented Eq for List
-toPrimitive :: List a -> [a]
-toPrimitive Empty = []
-toPrimitive (Elem x Empty) = x:[]
-toPrimitive (Elem x xs) = x:(toPrimitive xs)
+-- Implement (==) so we can use it in assertEquals
+instance (Eq a) => Eq (List a) where
+    Empty == Empty             = True
+    Empty == _                 = False
+    _ == Empty                 = False
+    (Elem x xs) == (Elem y ys) = (x == y) && (xs == ys)
 
 -- test listHead
 testHeadOnEmpty = 
     TestCase (assertEqual "testHeadOnEmpty"
-        True 
-        (isNothing (listHead emptyList) ) )
+        Nothing 
+        (listHead emptyList) )
 
 testHeadOnOne = 
     TestCase (assertEqual "testHeadOnOne"
@@ -41,18 +40,18 @@ testHeadOnFive =
 -- test listTail
 testTailOnEmpty = 
     TestCase (assertEqual "testTailOnEmpty"
-        True 
-        (isNothing . listTail $ emptyList) ) 
+        Nothing 
+        (listTail emptyList) ) 
    
 testTailOnOne = 
     TestCase (assertEqual "testTailOnOne"
-        [] 
-        (toPrimitive . fromJust . listTail $ listOfOne) )  
+        (Just Empty)  
+        (listTail $ listOfOne) )  
    
 testTailOnFive = 
     TestCase (assertEqual "testTailOnFive"
-        ["There", "Whats", "Going", "On"] 
-        (toPrimitive . fromJust . listTail $ listOfFive) )  
+        (Just (Elem "There" (Elem "Whats" (Elem "Going" (Elem "On" Empty))))) 
+        (listTail listOfFive) )  
 
 -- test listTail
 testSizeOnEmpty = 
@@ -104,18 +103,31 @@ testGetOnFiveSixth =
 -- test listMap
 testMapOnEmpty = 
     TestCase (assertEqual "testMapOnEmpty"
-        []
-        (toPrimitive $ listMap (+1) emptyList) )
+        Empty
+        (listMap (+1) emptyList) )
 
 testMapOnFive = 
     TestCase (assertEqual "testMapOnFive"
-        ["Hello!!", "There!!", "Whats!!", "Going!!", "On!!"]
-        (toPrimitive $ listMap (++"!!") listOfFive) )
+        (Elem "Hello!!" 
+            (Elem "There!!" 
+            (Elem "Whats!!" 
+            (Elem "Going!!" 
+            (Elem "On!!" Empty)))))
+        (listMap (++"!!") listOfFive) )
 
 testMapOnTen = 
     TestCase (assertEqual "testMapOnTen"
-        [(-10), (-20)..(-100)]
-        (toPrimitive $ listMap (\x -> negate x * 10) listOfTen) )
+        (Elem (-10) 
+            (Elem (-20) 
+            (Elem (-30) 
+            (Elem (-40) 
+            (Elem (-50) 
+            (Elem (-60) 
+            (Elem (-70) 
+            (Elem (-80) 
+            (Elem (-90) 
+            (Elem (-100) Empty)))))))))) 
+        (listMap (\x -> negate x * 10) listOfTen) )
 
 -- Suite
 tests = TestList [ TestLabel "testHeadOnEmpty" testHeadOnEmpty
