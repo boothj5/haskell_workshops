@@ -1,0 +1,26 @@
+List.hs
+-------
+
+Function type signaures and broken implementation are here for the exercises.
+
+listHead
+listTail
+listSize
+listGet
+listMap
+
+To test your implementations, make sure the following are in the same directory:
+
+List.hs
+ListTests.hs
+runtests.sh
+
+Make sure runtests.sh is executable and just call:
+
+./runtests.sh
+
+..to run the tests.
+
+(I don't know how to run it on windows, can't be much different)
+
+You need HUnit installed.
